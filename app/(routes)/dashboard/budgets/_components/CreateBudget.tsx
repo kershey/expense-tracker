@@ -20,8 +20,9 @@ export interface CreateBudgetProps {
   refreshData: () => Promise<void>;
 }
 
-// ✅ Explicitly define CreateBudget as a function component with proper types
-const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
+const CreateBudget = ({
+  refreshData,
+}: CreateBudgetProps): React.JSX.Element => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState('');
@@ -116,5 +117,4 @@ const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
   );
 };
 
-// ✅ Ensure CreateBudget is the default export
 export default CreateBudget;
