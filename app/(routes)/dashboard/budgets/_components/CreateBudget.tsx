@@ -21,7 +21,7 @@ interface CreateBudgetProps {
   refreshData: () => Promise<void>;
 }
 
-const CreateBudget = ({ refreshData }: CreateBudgetProps) => {
+const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState<string>('');
