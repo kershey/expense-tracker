@@ -17,9 +17,9 @@ import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
 import { useBudgetStore } from '@/store/budgetStore';
 
-type CreateBudgetProps = {
+export interface CreateBudgetProps {
   refreshData: () => Promise<void>;
-};
+}
 
 function CreateBudget({ refreshData }: CreateBudgetProps) {
   const [emojiIcon, setEmojiIcon] = useState('😊');
@@ -116,5 +116,4 @@ function CreateBudget({ refreshData }: CreateBudgetProps) {
   );
 }
 
-export type { CreateBudgetProps };
 export default CreateBudget;
