@@ -23,23 +23,27 @@ type Budget = typeof Budgets.$inferSelect & {
 };
 
 type EditBudgetProps = {
-  budget: Budget;
+  budgetInfo: Budget | undefined;
+  refreshData: () => Promise<void>;
 };
 
-const EditBudget = ({ budget }: EditBudgetProps) => {
-  const [emojiIcon, setEmojiIcon] = useState(budget?.icon ?? '😊');
+const EditBudget = ({ budgetInfo, refreshData }: EditBudgetProps) => {
+  const [emojiIcon, setEmojiIcon] = useState(budgetInfo?.icon ?? '😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
-  const [name, setName] = useState(budget?.name ?? '');
-  const [amount, setAmount] = useState(budget?.amount ?? 0);
+  const [name, setName] = useState(budgetInfo?.name ?? '');
+  const [amount, setAmount] = useState(budgetInfo?.amount ?? 0);
 
   const { updateBudget } = useBudgetStore();
 
   const handleUpdateBudget = async () => {
-    await updateBudget(budget.id, {
-      name,
-      amount,
-      icon: emojiIcon,
-    });
+    if (budgetInfo?.id) {
+      await updateBudget(budgetInfo.id, {
+        name,
+        amount: amount.toString(),
+        icon: emojiIcon,
+      });
+      await refreshData();
+    }
   };
 
   return (
