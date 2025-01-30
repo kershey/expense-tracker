@@ -20,6 +20,7 @@ export interface CreateBudgetProps {
   refreshData: () => Promise<void>;
 }
 
+// ✅ Explicitly define CreateBudget as a function component with proper types
 const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
@@ -39,7 +40,7 @@ const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
       setName('');
       setAmount('');
       setEmojiIcon('😊');
-      await refreshData(); // Ensure this is awaited
+      await refreshData();
     }
   };
 
@@ -115,4 +116,5 @@ const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
   );
 };
 
+// ✅ Ensure CreateBudget is the default export
 export default CreateBudget;
