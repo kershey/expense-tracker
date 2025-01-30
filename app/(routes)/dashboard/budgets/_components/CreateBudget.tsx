@@ -17,11 +17,11 @@ import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
 import { useBudgetStore } from '@/store/budgetStore';
 
-interface CreateBudgetProps {
+type CreateBudgetProps = {
   refreshData: () => Promise<void>;
-}
+};
 
-const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
+function CreateBudget({ refreshData }: CreateBudgetProps) {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState<string>('');
@@ -114,6 +114,7 @@ const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
       </Dialog>
     </div>
   );
-};
+}
 
+export type { CreateBudgetProps };
 export default CreateBudget;
