@@ -44,27 +44,25 @@ const BudgetList = () => {
   }, [user, getBudgetList]);
 
   return (
-    <Link href={`/dashboard/expenses/${budgetList[0]?.id}`}>
-      <div className="mt-5">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <CreateBudget refreshData={() => getBudgetList()} />
-          {budgetList?.length > 0
-            ? budgetList.map((budget, index) => (
-                <div key={index}>
+    <div className="mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <CreateBudget refreshData={() => getBudgetList()} />
+        {budgetList?.length > 0
+          ? budgetList.map((budget, index) => (
+              <Link key={index} href={`/dashboard/expenses/${budget.id}`}>
+                <div>
                   <BudgetItem budget={budget} />
                 </div>
-              ))
-            : Array.from({ length: budgetList?.length || 0 }).map(
-                (_, index) => (
-                  <div
-                    key={index}
-                    className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
-                  ></div>
-                )
-              )}
-        </div>
+              </Link>
+            ))
+          : Array.from({ length: budgetList?.length || 0 }).map((_, index) => (
+              <div
+                key={index}
+                className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
+              ></div>
+            ))}
       </div>
-    </Link>
+    </div>
   );
 };
 
