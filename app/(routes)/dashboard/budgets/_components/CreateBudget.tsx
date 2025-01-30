@@ -16,12 +16,12 @@ import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
 import { useBudgetStore } from '@/store/budgetStore';
 
-type CreateBudgetProps = {
+interface CreateBudgetProps extends React.HTMLAttributes<HTMLDivElement> {
   refreshData: () => Promise<void>;
-};
+}
 
 const CreateBudget = React.forwardRef<HTMLDivElement, CreateBudgetProps>(
-  ({ refreshData }, ref) => {
+  ({ refreshData, ...props }, ref) => {
     const [emojiIcon, setEmojiIcon] = useState('😊');
     const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
     const [name, setName] = useState('');
@@ -45,7 +45,7 @@ const CreateBudget = React.forwardRef<HTMLDivElement, CreateBudgetProps>(
     };
 
     return (
-      <div ref={ref}>
+      <div ref={ref} {...props}>
         <Dialog>
           <DialogTrigger asChild>
             <div className="bg-slate-100 p-10 rounded-md items-center flex flex-col border-2 border-dashed cursor-pointer hover:shadow-md">
