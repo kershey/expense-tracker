@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import CreateBudget from './CreateBudget';
+import CreateBudget from './CreateBudget'; // ✅ Ensure this import is correct
 import { Budgets, Expenses } from '@/db/schema';
 import { db } from '@/db';
 import { desc, eq, getTableColumns, sql } from 'drizzle-orm';
@@ -9,7 +9,7 @@ import { useUser } from '@clerk/nextjs';
 import BudgetItem from './BudgetItem';
 import Link from 'next/link';
 
-const BudgetList = (): React.JSX.Element => {
+const BudgetList: React.FC = () => {
   const [budgetList, setBudgetList] = useState<
     (typeof Budgets.$inferSelect & {
       totalSpend: number;
@@ -50,6 +50,7 @@ const BudgetList = (): React.JSX.Element => {
   return (
     <div className="mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* ✅ Ensure CreateBudget receives the correct prop */}
         <CreateBudget refreshData={getBudgetList} />
 
         {budgetList.length > 0
