@@ -17,7 +17,11 @@ import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
 import { useBudgetStore } from '@/store/budgetStore';
 
-const CreateBudget = () => {
+interface CreateBudgetProps {
+  refreshData: () => Promise<void>;
+}
+
+const CreateBudget = ({ refreshData }: CreateBudgetProps) => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState<string>('');
@@ -36,6 +40,7 @@ const CreateBudget = () => {
       setName('');
       setAmount('');
       setEmojiIcon('😊');
+      refreshData();
     }
   };
 
