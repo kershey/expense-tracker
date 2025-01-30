@@ -21,7 +21,9 @@ export interface CreateBudgetProps {
 }
 
 // ✅ Explicitly type CreateBudget as a React Function Component
-const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
+const CreateBudget: React.FC<CreateBudgetProps> = ({
+  refreshData,
+}: CreateBudgetProps) => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState('');
