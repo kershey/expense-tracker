@@ -21,7 +21,7 @@ interface CreateBudgetProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const CreateBudget = React.forwardRef<HTMLDivElement, CreateBudgetProps>(
-  ({ refreshData, ...props }, ref) => {
+  ({ refreshData, ...props }: CreateBudgetProps, ref) => {
     const [emojiIcon, setEmojiIcon] = useState('😊');
     const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
     const [name, setName] = useState('');
