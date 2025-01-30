@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/dialog';
 import EmojiPicker from 'emoji-picker-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
 import { useBudgetStore } from '@/store/budgetStore';
@@ -21,11 +20,11 @@ export interface CreateBudgetProps {
   refreshData: () => Promise<void>;
 }
 
-function CreateBudget({ refreshData }: CreateBudgetProps) {
+const CreateBudget: React.FC<CreateBudgetProps> = ({ refreshData }) => {
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
-  const [name, setName] = useState<string>('');
-  const [amount, setAmount] = useState<string>('');
+  const [name, setName] = useState('');
+  const [amount, setAmount] = useState('');
   const { user } = useUser();
   const { createBudget } = useBudgetStore();
 
@@ -40,7 +39,7 @@ function CreateBudget({ refreshData }: CreateBudgetProps) {
       setName('');
       setAmount('');
       setEmojiIcon('😊');
-      refreshData();
+      await refreshData(); // Ensure this is awaited
     }
   };
 
@@ -114,6 +113,6 @@ function CreateBudget({ refreshData }: CreateBudgetProps) {
       </Dialog>
     </div>
   );
-}
+};
 
 export default CreateBudget;
