@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import logo from '@/public/logo.svg';
-import { LayoutGrid, PiggyBank, ReceiptText, ShieldCheck } from 'lucide-react';
+import { LayoutGrid, PiggyBank, ReceiptText } from 'lucide-react';
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
 import { usePathname } from 'next/navigation';
