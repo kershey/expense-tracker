@@ -16,6 +16,7 @@ const BudgetList: React.FC = () => {
       totalItem: number;
     })[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useUser();
 
@@ -23,6 +24,7 @@ const BudgetList: React.FC = () => {
     if (!user?.primaryEmailAddress?.emailAddress) return;
 
     try {
+      setIsLoading(true);
       const result = await db
         .select({
           ...getTableColumns(Budgets),
@@ -38,6 +40,8 @@ const BudgetList: React.FC = () => {
       setBudgetList(result);
     } catch (error) {
       console.error('Error fetching budgets:', error);
+    } finally {
+      setIsLoading(false);
     }
   }, [user]);
 
@@ -50,23 +54,28 @@ const BudgetList: React.FC = () => {
   return (
     <div className="mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {/* ✅ Ensure CreateBudget receives the correct prop */}
         <CreateBudget refreshData={getBudgetList} />
 
-        {budgetList.length > 0
-          ? budgetList.map((budget) => (
-              <Link key={budget.id} href={`/dashboard/expenses/${budget.id}`}>
-                <div>
-                  <BudgetItem budget={budget} />
-                </div>
-              </Link>
-            ))
-          : Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={index}
-                className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
-              ></div>
-            ))}
+        {isLoading ? (
+          Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
+            ></div>
+          ))
+        ) : budgetList.length > 0 ? (
+          budgetList.map((budget) => (
+            <Link key={budget.id} href={`/dashboard/expenses/${budget.id}`}>
+              <div>
+                <BudgetItem budget={budget} />
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className="col-span-full text-center text-gray-500">
+            No budgets found. Create one to get started!
+          </div>
+        )}
       </div>
     </div>
   );
